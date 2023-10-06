@@ -1,0 +1,19 @@
+---
+- name: Install Nginx
+  hosts: targets
+  become: yes  # Run tasks as sudo
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Ensure Nginx is running
+      systemd:
+        name: nginx
+        enabled: yes
+        state: started
